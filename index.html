@@ -11,17 +11,20 @@
 <button onclick="copyData()">Copy</button>
 
 <script>
-var dataQueue = ["trung1", "trung2", "trung3"];
+// Lấy dữ liệu từ localStorage hoặc khởi tạo mảng mới nếu không có dữ liệu
+var dataQueue = JSON.parse(localStorage.getItem("dataQueue")) || ["trung1", "trung2", "trung3"];
 
 function displayData() {
   if (dataQueue.length > 0) {
     var displayDiv = document.getElementById("display");
     var dataLine = dataQueue.shift();
     displayDiv.innerHTML = dataLine;
+    // Lưu lại dữ liệu sau khi đã lấy ra một phần tử
+    localStorage.setItem("dataQueue", JSON.stringify(dataQueue));
   } else {
     alert("Hết dữ liệu!");
-    // Xóa dữ liệu khỏi mã nguồn khi hết dữ liệu
-    dataQueue = [];
+    // Xóa dữ liệu khỏi localStorage khi hết dữ liệu
+    localStorage.removeItem("dataQueue");
   }
 }
 
