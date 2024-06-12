@@ -9,21 +9,19 @@
 <div id="display"></div>
 <button onclick="displayData()">Reset</button>
 <button onclick="copyData()">Copy</button>
+<button onclick="addData()">Thêm dữ liệu</button>
 
 <script>
-// Lấy dữ liệu từ localStorage hoặc khởi tạo mảng mới nếu không có dữ liệu
-var dataQueue = JSON.parse(localStorage.getItem("dataQueue")) || ["trung1", "trung2", "trung3", "trung4"];
+var dataQueue = JSON.parse(localStorage.getItem("dataQueue")) || [];
 
 function displayData() {
   if (dataQueue.length > 0) {
     var displayDiv = document.getElementById("display");
     var dataLine = dataQueue.shift();
     displayDiv.innerHTML = dataLine;
-    // Lưu lại dữ liệu sau khi đã lấy ra một phần tử
     localStorage.setItem("dataQueue", JSON.stringify(dataQueue));
   } else {
     alert("Hết dữ liệu!");
-    // Xóa dữ liệu khỏi localStorage khi hết dữ liệu
     localStorage.removeItem("dataQueue");
   }
 }
@@ -37,6 +35,15 @@ function copyData() {
   document.execCommand("copy");
   window.getSelection().removeAllRanges();
   alert("Dữ liệu đã được sao chép!");
+}
+
+function addData() {
+  var newData = prompt("Nhập dữ liệu mới (ngăn cách bởi ký tự '|'):");
+  if (newData) {
+    var dataArray = newData.split("|");
+    dataQueue = dataQueue.concat(dataArray);
+    localStorage.setItem("dataQueue", JSON.stringify(dataQueue));
+  }
 }
 
 </script>
