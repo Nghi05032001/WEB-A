@@ -3,30 +3,7 @@
 <head>
     <title>Trang web của tôi</title>
     <style>
-        body {
-            font-size: 45px;
-        }
-        @media screen and (max-width: 600px) {
-            body {
-                font-size: 35px;
-            }
-        }
-        textarea, input[type="button"], button {
-            font-size: 75px;
-        }
-        @media screen and (max-width: 600px) {
-            textarea, input[type="button"], button {
-                font-size: 112px;
-            }
-        }
-        #display {
-            font-size: 75px;
-        }
-        @media screen and (max-width: 600px) {
-            #display {
-                font-size: 200px;
-            }
-        }
+        /* Your styles here */
     </style>
 </head>
 <body>
@@ -45,6 +22,15 @@
 <script>
 var dataQueue = [];
 
+// Load data from localStorage when the page loads
+window.onload = function() {
+  var savedData = localStorage.getItem('data');
+  if (savedData) {
+    document.getElementById("data").value = savedData;
+    dataQueue = savedData.split('\n');
+  }
+}
+
 function displayData() {
   var data = document.getElementById("data").value;
   dataQueue = data.split('\n');
@@ -55,6 +41,9 @@ function displayData() {
 
   // Xóa dữ liệu đã lấy khỏi textarea
   document.getElementById("data").value = dataQueue.join('\n');
+
+  // Save data to localStorage
+  localStorage.setItem('data', dataQueue.join('\n'));
 }
 
 function copyToClipboard(text) {
