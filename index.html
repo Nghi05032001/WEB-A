@@ -18,13 +18,10 @@ function displayData() {
     var displayDiv = document.getElementById("display");
     var dataLine = dataQueue.shift();
     displayDiv.innerHTML = dataLine;
-    // Lưu lại dữ liệu sau khi đã lấy ra một phần tử
-    localStorage.setItem("dataQueue", JSON.stringify(dataQueue));
   } else {
     alert("Hết dữ liệu!");
     // Xóa dữ liệu khỏi mã nguồn khi hết dữ liệu
     dataQueue = [];
-    localStorage.removeItem("dataQueue");
   }
 }
 
@@ -39,8 +36,6 @@ function copyData() {
   alert("Dữ liệu đã được sao chép!");
 }
 
-// Hiển thị dữ liệu đầu tiên khi tải trang
-window.onload = displayData;
 </script>
 
 </body>
