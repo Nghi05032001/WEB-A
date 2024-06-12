@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trang web của tôi</title>
+    <style>
+        body {
+            font-size: 20px;
+        }
+        @media screen and (max-width: 600px) {
+            body {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h2>Form nhập dữ liệu</h2>
+
+<form id="myForm">
+  <label for="data">Dữ liệu:</label><br>
+  <textarea id="data" name="data" rows="4" cols="50"></textarea><br><br>
+  <input type="button" value="Reset" onclick="displayData()">
+</form>
+
+<h2>Dữ liệu đã nhập:</h2>
+<div id="display"></div>
+
+<script>
+var dataQueue = [];
+
+function displayData() {
+  var data = document.getElementById("data").value;
+  dataQueue = data.split('\n');
+  
+  var displayDiv = document.getElementById("display");
+  var dataLine = dataQueue.shift();
+  displayDiv.innerHTML = dataLine + " <button onclick='copyToClipboard(\"" + dataLine + "\")'>Copy</button>";
+
+  // Xóa dữ liệu đã lấy khỏi textarea
+  document.getElementById("data").value = dataQueue.join('\n');
+}
+
+function copyToClipboard(text) {
+  var textarea = document.createElement("textarea");
+  textarea.textContent = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textarea);
+}
+</script>
+
+</body>
+</html>
 
